@@ -37,7 +37,10 @@ class Cluster:
           to self.center.
         """
         # fill in
-        pass
+        if len(self.points) == 0:
+            return 0
+        distance = sum(self.center.distFrom(p) for p in self.points)
+        return distance / len(self.points)
 
     def updateCenter(self):
         """Updates self.center to be the average of all points in the cluster.
@@ -47,7 +50,15 @@ class Cluster:
         """
         # fill in
         # Hint: make sure self.center is a Point object after this function runs.
-        pass
+        if len(self.points) == 0:
+            return
+        dim = self.dim
+        avg_coord = [0] * dim 
+        for p in self.points:
+            for i in range(dim):
+                avg_coord[i] += p[i]
+        avg_coord = [coord/len(self.points) for coord in avg_coord]
+        self.center = Point(avg_coord)
 
     def printAllPoints(self):
         print(str(self))

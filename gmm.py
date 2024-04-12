@@ -22,19 +22,20 @@ def concatenate_features(X1, X2):
 
     # 1. Using the np.reshape() method, reshape X1 to the shape (n, 1)
         # fill in
-
+    X1_reshape = np.reshape(X1, (-1,1))
 
     # 2. Using the np.reshape() method, reshape X2 to the shape (n, 1)
         # fill in
-
+    X2_reshape = np.reshape(X2, (-1,1))
 
     # 3. Using np.concatenate, stack the feature arrays and produce a single numpy array of shape (n,2)
         # fill_in
+    concatenate = np.concatenate((X1_reshape, X2_reshape), axis=1)
 
     # 4. Return the final array of the shape (n,2)
         # fill_in
 
-    pass
+    return concatenate
 
 def gaus_mixture(data, n_components):
 
@@ -56,19 +57,21 @@ def gaus_mixture(data, n_components):
     # (2) calculating the bic on `data` and making it the best bic, and (3) setting the
     # corresponding number of cluster (i.e., the first element of `n_components`
     # as the best number of clusters
-    gm = # fill in
-    best_bic = # fill in
-    best_no_clusters = # fill in
+    gm = GaussianMixture(n_components=best_no_clusters, random_state=0).fit(data)
+    best_bic = gm.bic(data)
+    best_no_clusters = n_components[0]
 
     # for all different k values in n_components, make GMM model and calculate BIC
     for k in n_components:
 
         # fit GMM (remember to set random_state=0 when you call GaussianMixture())
-
+        gm = GaussianMixture(n_components=k, random_state=0).fit(data)
         # calculate BIC
-
+        bic = gm.bic(data)
         # if current BIC is lowest, make it the best BIC and make its corresponding k the best_no_clusters
-
+        if bic < best_bic:
+            best_bic = bic
+            best_no_clusters = k
 
     return best_no_clusters
 

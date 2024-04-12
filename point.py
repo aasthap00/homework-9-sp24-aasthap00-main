@@ -38,10 +38,10 @@ class Point:
             )
 
         # Hint: Refer to the formula given in README.md for the Euclidean distance
-
+        sq_diff = [(x-y)**2 for x,y in zip(self.coords, other.coords)]
         # fill in
 
-        return 0
+        return math.sqrt(sum(sq_diff))
 
     def moveToCluster(self, dest):
         """Reassigns this Point to a new Cluster.
@@ -101,7 +101,7 @@ def makePointList(data):
       coordinates correspond to one row of data.
     """
     # fill in
-    pass
+    return [Point(row) for row in data]
 
 
 if __name__ == "__main__":
